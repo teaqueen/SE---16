@@ -1,0 +1,4 @@
+public enum TraderMode {
+
+    AGGRESSIVEBUYER, AGGRESSIVESELLER, BALANCED
+}

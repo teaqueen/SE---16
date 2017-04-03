@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="StockMarketSimulation">
+  <ClassDiagramComponents>
+    <Class name="Market" package="" visibility="public" xPosition="68.0" yPosition="102.0">
+      <Fields>
+        <Field name="netWorth" type="int" visibility="private"/>
+        <Field name="averageSharePrice" type="int" visibility="private"/>
+        <Field name="startDate" type="int" visibility="private"/>
+        <Field name="endDate" type="int" visibility="private"/>
+        <Field name="currentDate" type="int" visibility="private"/>
+        <Field name="ftse" type="int" visibility="private"/>
+        <Field name="eventSystem" type="Object" visibility="private"/>
+        <Field name="stockExchange" type="Object" visibility="private"/>
+        <Field name="client" type="ArrayList&lt;Client&gt;" visibility="private"/>
+        <Field name="companies" type="ArrayList&lt;Company&gt;" visibility="private"/>
+        <Field name="traders" type="ArrayList&lt;Trader&gt;" visibility="private"/>
+        <Field name="mode" type="MarketMode" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="FTSE" returnType="int" visibility="public"/>
+        <Method name="pause" returnType="void" visibility="public"/>
+        <Method name="run" returnType="void" visibility="public"/>
+        <Method name="step" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Client" package="" visibility="public" xPosition="1228.0" yPosition="180.0">
+      <Fields>
+        <Field name="netWorth" type="int" visibility="private"/>
+        <Field name="trader" type="Trader" visibility="private"/>
+        <Field name="portfolio" type="ArrayList&lt;Share&gt;" visibility="private"/>
+        <Field name="investmentRisk" type="Risk" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="setRisk" returnType="void" visibility="public"/>
+        <Method name="getRisk" returnType="Risk" visibility="public"/>
+        <Method name="getFinanfialReturn" returnType="int" visibility="public"/>
+        <Method name="getNetworth" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Trader" package="" visibility="public" xPosition="133.0" yPosition="673.0">
+      <Fields>
+        <Field name="clients" type="ArrayList&lt;Client&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buy" returnType="Share" visibility="public"/>
+        <Method name="sell" returnType="Share" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="RandomTrader" package="" visibility="public" xPosition="471.0" yPosition="713.0">
+      <Fields>
+        <Field name="mode" type="TraderMode" visibility="private"/>
+        <Field name="probabilityBalance" type="Double" visibility="private"/>
+        <Field name="probabilityAggressiveSeller" type="Double" visibility="private"/>
+        <Field name="probabilityAggressiveBuyer" type="Double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="switchMode" returnType="TraderMode" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="IntelligentTrader" package="" visibility="public" xPosition="754.0" yPosition="673.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="TradingExchange" package="" visibility="public" xPosition="396.0" yPosition="337.0">
+      <Fields>
+        <Field name="shares" type="ArrayList&lt;Share&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getShares" returnType="ArrrayList&lt;Share&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Share" package="" visibility="public" xPosition="707.0" yPosition="308.0">
+      <Fields>
+        <Field name="type" type="ShareType" visibility="private"/>
+        <Field name="quantity" type="int" visibility="private"/>
+        <Field name="price" type="int" visibility="private"/>
+        <Field name="risk" type="Risk" visibility="private"/>
+        <Field name="owner" type="Company" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="EventSystem" package="" visibility="public" xPosition="1016.0" yPosition="526.0">
+      <Fields>
+        <Field name="events" type="ArrayList&lt;Event&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="createEvent" returnType="Event" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Event" package="" visibility="public" xPosition="1274.0" yPosition="591.0">
+      <Fields>
+        <Field name="riskLevel" type="Risk" visibility="private"/>
+        <Field name="shareType" type="ShareType" visibility="private"/>
+        <Field name="time" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="t"/>
+          <Argument type="Risk" name="risk"/>
+          <Argument type="ShareType" name="sT"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="untitledMethod" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="Risk" package="" visibility="public" xPosition="977.0" yPosition="29.0">
+      <Literals>
+        <Literal name="LOW"/>
+        <Literal name="MEDIUM"/>
+        <Literal name="HIGH"/>
+      </Literals>
+    </Enum>
+    <Enum name="TraderMode" package="" visibility="public" xPosition="790.0" yPosition="29.0">
+      <Literals>
+        <Literal name="AGGRESSIVEBUYER"/>
+        <Literal name="AGGRESSIVESELLER"/>
+        <Literal name="BALANCED"/>
+      </Literals>
+    </Enum>
+    <Enum name="MarketMode" package="" visibility="public" xPosition="596.0" yPosition="29.0">
+      <Literals>
+        <Literal name="BEAR"/>
+        <Literal name="BULL"/>
+        <Literal name="UNDEFINED"/>
+      </Literals>
+    </Enum>
+    <Enum name="ShareType" package="" visibility="public" xPosition="1052.0" yPosition="763.0">
+      <Literals>
+        <Literal name="FOOD"/>
+        <Literal name="HI-TECH"/>
+        <Literal name="HARD"/>
+        <Literal name="PROPERTY"/>
+      </Literals>
+    </Enum>
+    <Class name="Company" package="" visibility="public" xPosition="847.0" yPosition="783.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="insolvent" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="setInsolvent" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="RandomTrader" target="Trader"/>
+    <IsRelation name="is" source="IntelligentTrader" target="Trader"/>
+    <HasRelation name="mode" source="Market" target="MarketMode" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="investmentRisk" source="Client" target="Risk" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="shareType" source="Event" target="ShareType" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="events" source="EventSystem" target="Event" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="risk" source="Share" target="Risk" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tradingExchange" source="Market" target="TradingExchange" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="trader" source="Client" target="Trader" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="type" source="Share" target="ShareType" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="clients" source="Trader" target="Client" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="companies" source="Market" target="Company" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="eventSystem" source="Market" target="EventSystem" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="shares" source="TradingExchange" target="Share" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="mode" source="RandomTrader" target="TraderMode" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="traders" source="Market" target="Trader" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="client" source="Market" target="Client" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="portfolio" source="Client" target="Share" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
