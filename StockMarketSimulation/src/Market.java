@@ -16,7 +16,11 @@ public class Market {
 
     private LocalDateTime currentDate;
 
-    private int ftse;
+    private Integer ftse;
+    
+    private int previousFtse;
+    
+    private int modeCounter = 0;
 
     private EventSystem eventSystem;
 
@@ -30,13 +34,14 @@ public class Market {
 
     private MarketMode mode = MarketMode.UNDEFINED;
 
+
     public Market(String startDate, String endDate, ArrayList<Company> companies, ArrayList<Client> client, ArrayList<Trader> traders) {
         this.startDate = LocalDateTime.parse(startDate);
         this.endDate = LocalDateTime.parse(endDate);
         this.currentDate = this.startDate;
     }
 
-    public int FTSE() {
+    private int FTSE() {
         int calc = 0;
         for(Share s : stockExchange.getShares()){
             calc += s.getPrice() * s.getQuantity();
@@ -50,6 +55,7 @@ public class Market {
 
     public void run() {
         Event currentEvent;
+        
         while(currentDate.compareTo(endDate)!=0){
             currentDate.plusMinutes(15);
             currentEvent = eventSystem.poll(currentDate);
@@ -57,7 +63,24 @@ public class Market {
                 riskPerm(currentEvent.getRisk());
             }
             runTraders();
+            ftse = FTSE();
+            mode = switchMode();
         }
+    }
+    
+    private MarketMode switchMode(){
+        if(ftse != null){
+            if(previousFtse > ftse){
+                modeCounter += -1;
+            }else{
+                modeCounter += 1;
+            }
+        }
+        switch(ftse){
+            case 2: return MarketMode.BULL;
+            case 3: return MarketMode.BEAR;
+        }
+        return MarketMode.UNDEFINED;
     }
     
     private void runTraders(){
