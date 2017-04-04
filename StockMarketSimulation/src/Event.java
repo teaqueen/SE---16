@@ -11,4 +11,8 @@ public class Event {
 
     public void untitledMethod() {
     }
+
+    Risk getRisk() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

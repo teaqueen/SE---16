@@ -8,4 +8,8 @@ public class TradingExchange {
     public ArrayList<Share> getShares() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    void setRisk() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -56,6 +56,7 @@ public class Market {
             if(currentEvent != null){
                 riskPerm(currentEvent.getRisk());
             }
+            runTraders();
         }
     }
     
