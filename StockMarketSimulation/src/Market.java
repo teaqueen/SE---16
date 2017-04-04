@@ -1,5 +1,8 @@
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.time.*;
+import javafx.util.converter.LocalDateTimeStringConverter;
 
 public class Market {
 
@@ -7,17 +10,17 @@ public class Market {
 
     private int averageSharePrice;
 
-    private int startDate;
+    private LocalDateTime startDate;
 
-    private int endDate;
+    private LocalDateTime endDate;
 
-    private int currentDate;
+    private LocalDateTime currentDate;
 
     private int ftse;
 
-    private Object eventSystem;
+    private EventSystem eventSystem;
 
-    private Object stockExchange;
+    private TradingExchange stockExchange;
 
     private ArrayList<Client> client;
 
@@ -25,21 +28,58 @@ public class Market {
 
     private ArrayList<Trader> traders;
 
-    private MarketMode mode;
+    private MarketMode mode = MarketMode.UNDEFINED;
 
-    public Market() {
+    public Market(String startDate, String endDate, ArrayList<Company> companies, ArrayList<Client> client, ArrayList<Trader> traders) {
+        this.startDate = LocalDateTime.parse(startDate);
+        this.endDate = LocalDateTime.parse(endDate);
+        this.currentDate = this.startDate;
     }
 
     public int FTSE() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int calc = 0;
+        for(Share s : stockExchange.getShares()){
+            calc += s.getPrice() * s.getQuantity();
+        }
+        return calc;
     }
 
     public void pause() {
+        throw new UnsupportedOperationException();
     }
 
     public void run() {
+        Event currentEvent;
+        while(currentDate.compareTo(endDate)!=0){
+            currentDate.plusMinutes(15);
+            currentEvent = eventSystem.poll(currentDate);
+            if(currentEvent != null){
+                riskPerm(currentEvent.getRisk());
+            }
+        }
+    }
+    
+    private void runTraders(){
+        for(Trader t : traders){
+            t.buy();
+            t.sell();
+        }
+    }
+    
+    private void riskPerm(Risk risk){
+        stockExchange.setRisk();
+        
+    }
+    
+    public String getStartDateTime(){
+        return startDate.toString();
+    }
+    
+    public String getEndDateTime(){
+        return endDate.toString();
     }
 
     public void step() {
+        throw new UnsupportedOperationException();
     }
 }
